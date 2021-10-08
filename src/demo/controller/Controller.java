@@ -1,48 +1,51 @@
 package demo.controller;
 
+
 //imports
-import java.util.Scanner;
+//import java.util.Scanner;
+import demo.view.Popup;
 
 public class Controller {
-	
 	//data members
-	private Scanner input;
+	private Popup view;
+	private double output;
 	
 	
 	
 	//constructor
 	public Controller()
 	{
-		this.input = new Scanner(System.in);
+		this.view = new Popup();
 	}
 	
 	//main
 	public void start()
 	{
-		System.out.println("What is owed? ");
-		double total = (input.nextDouble());
-		System.out.println("What do you have? ");
-		double moneyHave  = input.nextDouble();
+		Double total = view.askQuestion("What is owed?");
+		double moneyHave = view.askQuestion("How much do you have?");
 		changeCalc(total, moneyHave);
-		
 		
 	}
 	
 	//Calculates the change
 	private void changeCalc(double total, double moneyHave)
 	{
-		Double output = 0.0;
+		output = 0.0;
 		if (moneyHave - total >= 0)
 		{
 			output = moneyHave - total;
 			output = Math.round(output*100.0000000)/100.00000000;
-			System.out.println("Your change is $" + output);
+			view.displayMessage("Your change is $" + output);
 			dollarCount(output);
 		}
 		else
 		{
-			output = total - moneyHave;System.out.println("Your owe " + output + " more. ");
+			output = total - moneyHave;
+			
+			view.displayMessage("You owe " + output + " more.");
+			
 			output = 0.0;
+			start();
 		}
 		
 	}
@@ -118,109 +121,29 @@ public class Controller {
 				change = change - 0.01;
 				change = Math.round(change*100.00)/100.00;
 			}
-			
-			
-			//this prints the results of the counting
-			if (hundred > 0)
-			{
-				if (hundred > 1)
-				{
-					System.out.println(hundred + " hundreds");
-				}
-				else
-				{
-					System.out.println(hundred + " hundred");
-				}
-			}
-			if (fifty > 0)
-			{
-				if (fifty > 1)
-				{
-					System.out.println(fifty + " fifties");
-				}
-				else
-				{
-					System.out.println(fifty + " fifty");
-				}
-			}
-			if (twenty > 0)
-			{
-				if (twenty > 1)
-				{
-					System.out.println(twenty + " twenties");
-				}
-				else
-				{
-					System.out.println(twenty + " twenty");
-				}
-			}
-			if (ten > 0)
-			{
-				if (ten > 1)
-				{
-					System.out.println(ten + " tens");
-				}
-				else
-				{
-					System.out.println(ten + " ten");
-				}
-				
-			}
-			if (ones > 0)
-			{
-				if (ones > 1)
-				{
-					System.out.println(ones + "ones");
-				}
-				else
-				{
-					System.out.println(ones + "one");
-				}
-			}
-			if (quater > 0)
-			{
-				if (quater > 1)
-				{
-					System.out.println(quater + " quaters");
-				}
-				else
-				{
-					System.out.println(quater + " quater");
-				}
-			}
-			if (dime > 0)
-			{
-				if (dime > 1)
-				{
-					System.out.println(dime + " dimes");
-				}
-				else
-				{
-					System.out.println(dime + " dime");
-				}
-			}
-			if (nickel > 0)
-			{
-				if (nickel > 1)
-				{
-					System.out.println(nickel + " nickels");
-				}
-				else
-				{
-					System.out.println(nickel + " nickels");
-				}
-			}
-			if (penny > 0)
-			{
-				if (penny > 1)
-				{
-					System.out.println(penny + " pennies");
-				}
-				else
-				{
-					System.out.println(penny + " penny");
-				}
-			}
+		repeatDisplay(hundred, fifty, twenty, ten, five, ones, quater, dime, nickel, penny);
 		}
 	}
+	public void repeatDisplay(int hundred, int fifty, int twenty, int ten, int five, int one, int quater, int dime, int nickel, int penny)
+	{
+		String answer = view.askQuestionString("Change: " + output + "\nChange in currency\nHundreds: " + hundred + "\nFifty: " + fifty + "\nTwenty: " + twenty + "\nTen: " + ten + 
+				"\nFive: " + five + "\nOne: " + one + "\nQuarter: " + quater + "\nDime: " + dime + "\nNickel: " + nickel + 
+				"\nPenny: " + penny + "\nType in 1 to reapet or 2 to stop");
+		System.out.println(answer);
+		if (answer.equals("1"))
+		{
+			start();
+		}
+		else if (answer.equals("2"))
+		{
+			System.exit(0);
+		}
+		else
+		{
+			repeatDisplay(hundred, fifty, twenty, ten, five, one, quater, dime, nickel, penny);
+		}
+		
+	}
+	
+	
 }
