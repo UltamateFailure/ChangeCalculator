@@ -41,9 +41,8 @@ public class Controller {
 		else
 		{
 			output = total - moneyHave;
-			
+			output = Math.round(output*100.0000000)/100.00000000;
 			view.displayMessage("You owe " + output + " more.");
-			
 			output = 0.0;
 			start();
 		}
@@ -124,7 +123,9 @@ public class Controller {
 		repeatDisplay(hundred, fifty, twenty, ten, five, ones, quater, dime, nickel, penny);
 		}
 	}
-	public void repeatDisplay(int hundred, int fifty, int twenty, int ten, int five, int one, int quater, int dime, int nickel, int penny)
+	
+	//Displays the final calculations
+	private void repeatDisplay(int hundred, int fifty, int twenty, int ten, int five, int one, int quater, int dime, int nickel, int penny)
 	{
 		String answer = view.askQuestionString("Change: " + output + "\nChange in currency\nHundreds: " + hundred + "\nFifty: " + fifty + "\nTwenty: " + twenty + "\nTen: " + ten + 
 				"\nFive: " + five + "\nOne: " + one + "\nQuarter: " + quater + "\nDime: " + dime + "\nNickel: " + nickel + 

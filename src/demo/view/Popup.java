@@ -22,12 +22,14 @@ public class Popup {
 		
 		catch(NumberFormatException e)
 		{
+			answer = "";
+			doubleAnswer = 0;
 			doubleAnswer = askQuestion("Invalid Try again");
 		}
-		Double.parseDouble(answer);
 		System.out.println(doubleAnswer);
 		return doubleAnswer;
 		}
+	
 	public String askQuestionString(String input)
 	{
 		String answer = JOptionPane.showInputDialog(null,input);	
